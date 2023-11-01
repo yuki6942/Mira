@@ -1,7 +1,7 @@
-using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Mira.Commands.Autocomplete;
 using Mira.Database;
 using Mira.Database.Entities;
@@ -20,30 +20,30 @@ public class Stardew : ApplicationCommandModule
     }
     
     [SlashCommand("villager", "List some information about that villager")]
-    public async Task GiftCommandAsync(InteractionContext ctx, [Option("character", "The character for whom you want to list gifts.", true)]
+    public async Task VillagerCommandAsync(InteractionContext ctx, [Option("villager", "The villager for whom you want to list gifts.", true)]
         [Autocomplete(typeof(StardewAutoCompletion))]
-        string characterId)
+        string villagerId)
     {
 
-        StardewCharacter? character = await this._context.StardewCharacters.FirstOrDefaultAsync(c => c.Id.ToString() == characterId);
-
-        if (character is null)
+        StardewCharacter? villager = await this._context.StardewCharacters.FirstOrDefaultAsync(c => c.Id.ToString() == villagerId);
+        
+        if (villager is null)
         {
-            await ctx.CreateResponseAsync($"Character with Id {characterId} not found.");
+            await ctx.CreateResponseAsync($"Villager `{villagerId}` not found.", ephemeral: true);
             return;
         }
         
         DiscordEmbedBuilder embedBuilder = new DiscordEmbedBuilder()
             .WithColor(DiscordColor.Purple)
-            .WithTitle($"Information about {character.Villager}")
-            .AddField("__Birthday__", $"`{character.Birthday}`")
-            .AddField("__Loves__", $"`{character.Loves}`")
-            .AddField("__Likes__", $"`{character.Likes}`")
-            .AddField("__Neutral__", $"`{character.Neutral}`")
-            .AddField("__Dislikes__", $"`{character.Dislikes}`")
-            .AddField("__Hates__", $"`{character.Hates}`");
+            .WithTitle($"Information about {villager.Villager}")
+            .AddField("__Birthday__", $"`{villager.Birthday}`")
+            .AddField("__Loves__", $"`{villager.Loves}`")
+            .AddField("__Likes__", $"`{villager.Likes}`")
+            .AddField("__Neutral__", $"`{villager.Neutral}`")
+            .AddField("__Dislikes__", $"`{villager.Dislikes}`")
+            .AddField("__Hates__", $"`{villager.Hates}`");
             
-        if (character.Villager == "Universals")
+        if (villager.Villager == "Universals")
         {
             embedBuilder
                 .AddField("__Universal Dislike exceptions__","See the exceptions [here](https://stardewvalleywiki.com/Friendship#Universal_Hates)" )
@@ -54,14 +54,13 @@ public class Stardew : ApplicationCommandModule
             new DiscordInteractionResponseBuilder()
                 .AddEmbed(embedBuilder);
             
-        if (character.Villager != "Universals")
+        if (villager.Villager != "Universals")
         {
             response.AddComponents(new DiscordLinkButtonComponent(
-                $"https://stardewvalleywiki.com/{character.Villager}",
+                $"https://stardewvalleywiki.com/{villager.Villager}",
                 "Open Wiki"));
-
         }
-            
+        
         await ctx.CreateResponseAsync(response);
         
     }
