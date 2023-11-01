@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mira.Commands.Autocomplete;
 using Mira.Database;
 
 namespace Mira
@@ -36,7 +37,7 @@ namespace Mira
             collection.AddDbContextPool<MiraContext>(db =>
                 db.UseNpgsql(config["DB_STRING"]));
             IServiceProvider services = collection.BuildServiceProvider();
-
+            
             IReadOnlyDictionary<int, SlashCommandsExtension> slash =
                 await client.UseSlashCommandsAsync(
                     new SlashCommandsConfiguration()

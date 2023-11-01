@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Mira.Migrations
 {
     [DbContext(typeof(MiraContext))]
-    [Migration("20231031083814_InitialDatabase")]
+    [Migration("20231101111653_InitialDatabase")]
     partial class InitialDatabase
     {
         /// <inheritdoc />

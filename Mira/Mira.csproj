@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="CsvHelper" Version="30.0.1" />
         <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01855" />
         <PackageReference Include="DSharpPlus.Interactivity" Version="5.0.0-nightly-01855" />
         <PackageReference Include="DSharpPlus.SlashCommands" Version="5.0.0-nightly-01855" />
@@ -29,6 +30,7 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Include="bin\Debug\net7.0\gifts_data.json" />
+        <Content Include="bin\Debug\net7.0\StardewCharacters.csv" />
     </ItemGroup>
 
     <ItemGroup>
