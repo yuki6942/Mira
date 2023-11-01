@@ -27,42 +27,42 @@ public class Stardew : ApplicationCommandModule
 
         StardewCharacter? character = await this._context.StardewCharacters.FirstOrDefaultAsync(c => c.Id.ToString() == characterId);
 
-        if (character != null)
+        if (character is null)
         {
-
-            DiscordEmbedBuilder embedBuilder = new DiscordEmbedBuilder()
-                .WithColor(DiscordColor.Purple)
-                .WithTitle($"Information about {character.Villager}")
-                .AddField("__Birthday__", $"`{character.Birthday}`")
-                .AddField("__Loves__", $"`{character.Loves}`")
-                .AddField("__Likes__", $"`{character.Likes}`")
-                .AddField("__Neutral__", $"`{character.Neutral}`")
-                .AddField("__Dislikes__", $"`{character.Dislikes}`")
-                .AddField("__Hates__", $"`{character.Hates}`");
-            
-            if (character.Villager == "Universals")
-            {
-                embedBuilder
-                    .AddField("__Universal Dislike exceptions__","See the exceptions [here](https://stardewvalleywiki.com/Friendship#Universal_Hates)" )
-                    .AddField("__Universal Hates exceptions__", "See the exceptions [here](https://stardewvalleywiki.com/Friendship#Universal_Dislikes)");
-            }
-                        
-            DiscordInteractionResponseBuilder response =
-                new DiscordInteractionResponseBuilder()
-                    .AddEmbed(embedBuilder);
-            
-            if (character.Villager != "Universals")
-            {
-                response.AddComponents(new DiscordLinkButtonComponent(
-                    $"https://stardewvalleywiki.com/{character.Villager}",
-                    "Open Wiki"));
-
-            }
-            
-            await ctx.CreateResponseAsync(response);
+            await ctx.CreateResponseAsync($"Character with Id {characterId} not found.");
             return;
         }
+        
+        DiscordEmbedBuilder embedBuilder = new DiscordEmbedBuilder()
+            .WithColor(DiscordColor.Purple)
+            .WithTitle($"Information about {character.Villager}")
+            .AddField("__Birthday__", $"`{character.Birthday}`")
+            .AddField("__Loves__", $"`{character.Loves}`")
+            .AddField("__Likes__", $"`{character.Likes}`")
+            .AddField("__Neutral__", $"`{character.Neutral}`")
+            .AddField("__Dislikes__", $"`{character.Dislikes}`")
+            .AddField("__Hates__", $"`{character.Hates}`");
+            
+        if (character.Villager == "Universals")
+        {
+            embedBuilder
+                .AddField("__Universal Dislike exceptions__","See the exceptions [here](https://stardewvalleywiki.com/Friendship#Universal_Hates)" )
+                .AddField("__Universal Hates exceptions__", "See the exceptions [here](https://stardewvalleywiki.com/Friendship#Universal_Dislikes)");
+        }
+                        
+        DiscordInteractionResponseBuilder response =
+            new DiscordInteractionResponseBuilder()
+                .AddEmbed(embedBuilder);
+            
+        if (character.Villager != "Universals")
+        {
+            response.AddComponents(new DiscordLinkButtonComponent(
+                $"https://stardewvalleywiki.com/{character.Villager}",
+                "Open Wiki"));
 
-        await ctx.CreateResponseAsync($"Character with Id {characterId} not found.");
+        }
+            
+        await ctx.CreateResponseAsync(response);
+        
     }
 }
