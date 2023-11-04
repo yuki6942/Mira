@@ -17,7 +17,7 @@ public class StardewAutoCompletion : IAutocompleteProvider
     public Task<IEnumerable<DiscordAutoCompleteChoice>> Provider(AutocompleteContext ctx)
     {
 
-        string userInput = ctx.OptionValue?.ToString()?.ToLower() ?? string.Empty;
+        string userInput = ctx.OptionValue.ToString()?.ToLower() ?? string.Empty;
 
         IQueryable<DiscordAutoCompleteChoice> villagers = this._context.StardewCharacters
             .Where(c => c.Villager.ToLower().StartsWith(userInput))

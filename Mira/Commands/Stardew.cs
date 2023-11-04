@@ -1,7 +1,6 @@
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Mira.Commands.Autocomplete;
 using Mira.Database;
 using Mira.Database.Entities;
