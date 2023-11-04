@@ -29,16 +29,5 @@
         <Content Include="assets\*.*">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Include="bin\Debug\net7.0\gifts_data.json" />
-        <Content Include="bin\Debug\net7.0\StardewCharacters.csv" />
     </ItemGroup>
-
-    <ItemGroup>
-      <None Include="bin\Debug\net7.0\gifts_data.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="bin\Debug\net7.0\" />
-    </ItemGroup>
-
 </Project>
