@@ -1,4 +1,3 @@
-using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Microsoft.EntityFrameworkCore;
@@ -58,7 +57,8 @@ public class Stardew : ApplicationCommandModule
                 $"https://stardewvalleywiki.com/{villager.Villager}",
                 "Open Wiki"));
             
-            // embedBuilder.WithThumbnail($"./assets/{villager.Villager}.png");
+            // TODO: Upload images to server & access them via that 
+            embedBuilder.WithThumbnail($"https://raw.githubusercontent.com/yuki6942/Mira/main/Mira/assets/{villager.Villager}.png");
 
         }
 
