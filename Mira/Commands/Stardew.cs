@@ -1,3 +1,4 @@
+using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Microsoft.EntityFrameworkCore;
@@ -41,24 +42,27 @@ public class Stardew : ApplicationCommandModule
             .AddField("__Neutral__", $"`{villager.Neutral}`")
             .AddField("__Dislikes__", $"`{villager.Dislikes}`")
             .AddField("__Hates__", $"`{villager.Hates}`");
-            
+        
+        DiscordInteractionResponseBuilder response =
+            new DiscordInteractionResponseBuilder();
+
         if (villager.Villager == "Universals")
         {
             embedBuilder
                 .AddField("__Universal Dislike exceptions__","See the exceptions [here](https://stardewvalleywiki.com/Friendship#Universal_Hates)" )
                 .AddField("__Universal Hates exceptions__", "See the exceptions [here](https://stardewvalleywiki.com/Friendship#Universal_Dislikes)");
         }
-                        
-        DiscordInteractionResponseBuilder response =
-            new DiscordInteractionResponseBuilder()
-                .AddEmbed(embedBuilder);
-            
-        if (villager.Villager != "Universals")
+        else
         {
             response.AddComponents(new DiscordLinkButtonComponent(
                 $"https://stardewvalleywiki.com/{villager.Villager}",
                 "Open Wiki"));
+            
+            // embedBuilder.WithThumbnail($"./assets/{villager.Villager}.png");
+
         }
+
+        response.AddEmbed(embedBuilder);
         
         await ctx.CreateResponseAsync(response);
         
