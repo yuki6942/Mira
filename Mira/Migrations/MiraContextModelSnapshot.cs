@@ -32,7 +32,7 @@ namespace Mira.Migrations
 
                     b.HasKey("GuildId");
 
-                    b.ToTable("Guilds");
+                    b.ToTable("Guilds", (string)null);
                 });
 
             modelBuilder.Entity("Mira.Database.Entities.Logging", b =>
@@ -46,7 +46,7 @@ namespace Mira.Migrations
 
                     b.HasKey("GuildId");
 
-                    b.ToTable("Loggings");
+                    b.ToTable("Loggings", (string)null);
                 });
 
             modelBuilder.Entity("Mira.Database.Entities.StardewCharacter", b =>
@@ -87,7 +87,7 @@ namespace Mira.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StardewCharacters");
+                    b.ToTable("StardewCharacters", (string)null);
                 });
 
             modelBuilder.Entity("Mira.Database.Entities.User", b =>
@@ -101,7 +101,7 @@ namespace Mira.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }

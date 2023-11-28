@@ -8,11 +8,11 @@ using Mira.Database.Entities;
 namespace Mira.Commands;
 
 [SlashCommandGroup("settings", "Server settings commands.")]
-public class Logs : ApplicationCommandModule
+public class Settings : ApplicationCommandModule
 {
     private readonly MiraContext _context;
 
-    public Logs(MiraContext context)
+    public Settings(MiraContext context)
     {
         this._context = context;
     }
@@ -23,7 +23,7 @@ public class Logs : ApplicationCommandModule
     public async Task LoggingAsync(InteractionContext ctx,
         [Option("channel", "The logging channel", true)] DiscordChannel loggingChannel)
     {
-#pragma warning disable CS4014
+#pragma warning disable CS4014 
         // ReSharper disable once MethodHasAsyncOverload
         Logging? existingLogging = this._context.Loggings.Find(ctx.Guild.Id);
         // ReSharper restore MethodHasAsyncOverload

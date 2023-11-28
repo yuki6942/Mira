@@ -34,9 +34,16 @@ public class MiraEventHandler
 #pragma warning restore CA1822
     {
         slash.Client.Logger.LogError("An error has occurred: {Exception}", e.Exception);
-        await e.Context.CreateResponseAsync(
-            $"An error has occurred, please report the following error on our discord:\n{e.Exception}",
-            ephemeral: true);
+        if (e.Exception is SlashExecutionChecksFailedException)
+        {
+            await e.Context.CreateResponseAsync("Only the bot owner can use these commands!", ephemeral: true);
+        }
+        else
+        {
+            await e.Context.CreateResponseAsync(
+                $"An error has occurred, please report the following error on our discord:\n{e.Exception}",
+                ephemeral: true);
+        }
     }
     
     private async Task OnGuildJoinAsync(DiscordClient client, GuildCreateEventArgs e)
